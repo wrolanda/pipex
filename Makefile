@@ -6,11 +6,11 @@
 #    By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/21 23:04:08 by wrolanda          #+#    #+#              #
-#    Updated: 2022/01/25 17:04:49 by wrolanda         ###   ########.fr        #
+#    Updated: 2022/02/08 13:32:28 by wrolanda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	libftprintf.a
+NAME	=	pipex
 
 SRCS	=	srcs/ft_printf.c\
 			srcs/ft_flags_csdiu.c	srcs/ft_flags_pxX.c\
@@ -42,7 +42,8 @@ $(NAME)	:	$(OBJ) $(HEADER)
 # $<- The name of the first prerequisite.
 # $@ - The file name of the target of the rule. If the target is an archive member, then '$ @' denotes the name of the archive file.
 
-bonus	:	all
+bonus	:
+	@make OBJ="$(OBJ_B)" all
 
 clean	:
 	rm	-f $(OBJ) $(OBJ_B)
