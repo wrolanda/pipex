@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_low.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:17:44 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/10 16:35:47 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:26:13 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,35 @@ void	pipex(int infile, int outfile, char *cmd1, char *cmd2)
 	if (child1 < 0)
 		return (perror("Fork"));
 	if (child1 == 0)
-		ft_child_one(infile, end, cmd1);
+//		ft_child_one(infile, end, cmd1);
+	{
+		if (dup2(end[1], STDOUT_FILENO) < 0)
+			return;
+		close(end[0]);
+		close(infile);
+		close(end[1]);
+		execlp("ping", "ping", "-c", "5", "google.com", NULL);
+	}
 	child2 = fork();
 	if (child2 < 0)
 		return (perror("Fork"));
 	if (child2 == 0)
-		ft_child_two(outfile, end, cmd2);
+//		ft_child_two(outfile, end, cmd2);
+	{
+		if (dup2(end[0], STDIN_FILENO) < 0)
+			return;
+		close(end[1]);
+		close(outfile);
+		execlp("grep", "grep", "rtt", NULL);
+		// exit(EXIT_FAILURE);
+	}
 	close(end[0]);
 	close(end[1]);
 	waitpid(child1, &status, 0);
 	waitpid(child2, &status, 0);
 }
 
-void	ft_child_one(int infile, int end[2], char *cmd1)
+/*void	ft_child_one(int infile, int (&end)[2], char *cmd1)
 {
 //	if (dup2(infile, STDIN_FILENO) < 0)
 //		return ;
@@ -60,9 +76,9 @@ void	ft_child_two(int outfile, int end[2], char *cmd2)
 	close(outfile);
 	execlp("grep", "grep", "rtt", NULL);
 	//exit(EXIT_FAILURE);
-}
+}*/
 
 int	main()
 {
-	pipex(3,4, "sdas","asdas");
+	pipex(3,4,"nothing","nothing");
 }

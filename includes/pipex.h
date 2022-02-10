@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:41:17 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/09 14:29:48 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/10 16:10:44 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,9 @@
 # include <sys/wait.h>
 /*for perror*/
 # include <stdio.h>
+
+void	pipex(int infile, int outfile, char *cmd1, char *cmd2);
+void	ft_child_one(int infile, int end[2], char *cmd1);
+void	ft_child_two(int outfile, int end[2], char *cmd2);
 
 #endif
