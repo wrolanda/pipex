@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:41:32 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/10 16:07:05 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/20 15:07:38 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 		return (3);
 
 	if (pid2 == 0)
-	// child process 1 (ping)
+	// child process 2 (grep)
 	{
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);

@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:17:44 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/10 16:35:47 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/20 17:05:44 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	pipex(int infile, int outfile, char *cmd1, char *cmd2)
 
 void	ft_child_one(int infile, int end[2], char *cmd1)
 {
-//	if (dup2(infile, STDIN_FILENO) < 0)
-//		return ;
+	//if (dup2(infile, STDIN_FILENO) < 0)
+	//	return ;
 	if (dup2(end[1], STDOUT_FILENO) < 0)
 		return ;
 	close(end[0]);
@@ -54,15 +54,17 @@ void	ft_child_two(int outfile, int end[2], char *cmd2)
 {
 	if (dup2(end[0], STDIN_FILENO) < 0)
 		return ;
-//	if (dup2(outfile, STDOUT_FILENO) < 0)
-//		return ;
+	//if (dup2(outfile, STDOUT_FILENO) < 0)
+	//	return ;
 	close(end[1]);
 	close(outfile);
 	execlp("grep", "grep", "rtt", NULL);
 	//exit(EXIT_FAILURE);
 }
 
-int	main()
+int	main(int argc, char **argv, char **envp)
 {
+	if (argc != 5)
+		err("Incorrect number of arguments");
 	pipex(3,4, "sdas","asdas");
 }
