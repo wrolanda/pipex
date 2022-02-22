@@ -13,8 +13,9 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-#define S_IREAD           0400
-#define S_IWRITE          0200
+/* R and W для собственника, группы и ост-х */
+#define S_IREAD           0444
+#define S_IWRITE          0222
 
 /*for access, unlink, close, read, write, pipe, dup, dup2, execve, fork,
  STDOUT_FIILENO, STDIN_FIILENO*/
@@ -28,7 +29,7 @@
 /*for perror*/
 # include <stdio.h>
 
-void	pipex(int infile, int outfile, char *cmd1, char *cmd2);
+void	pipex(int infile, char *cmd1, char *cmd2, int outfile);
 void	ft_child_one(int infile, int end[2], char *cmd1);
 void	ft_child_two(int outfile, int end[2], char *cmd2);
 

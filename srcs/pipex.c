@@ -12,7 +12,7 @@
 
 #include "../includes/pipex.h"
 
-void	pipex(int infile, int outfile, char *cmd1, char *cmd2)
+void	pipex(int infile, char *cmd1, char *cmd2, int outfile)
 {
 	int		end[2];
 	int		status;
@@ -54,17 +54,25 @@ void	ft_child_two(int outfile, int end[2], char *cmd2)
 {
 	if (dup2(end[0], STDIN_FILENO) < 0)
 		return ;
-	//if (dup2(outfile, STDOUT_FILENO) < 0)
-	//	return ;
+	if (dup2(outfile, STDOUT_FILENO) < 0)
+		return ;
 	close(end[1]);
-	close(outfile);
 	execlp("grep", "grep", "rtt", NULL);
+	close(outfile);
 	//exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc != 5)
-		err("Incorrect number of arguments");
-	pipex(3,4, "sdas","asdas");
+	if (argc != 3)
+		printf("Incorrect number of arguments\n");
+	
+	int infile = 3;
+	int outfile;	
+	outfile = open(argv[2], O_WRONLY|O_CREAT|O_TRUNC, S_IREAD|S_IWRITE);
+	if (outfile < 0)
+		return (printf("cant open/create outfile\n"));
+	pipex(infile, "cmd1","cmd2", outfile);
+
+	return (0);
 }
