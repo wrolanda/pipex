@@ -12,6 +12,10 @@
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+#define S_IREAD           0400
+#define S_IWRITE          0200
+
 /*for access, unlink, close, read, write, pipe, dup, dup2, execve, fork,
  STDOUT_FIILENO, STDIN_FIILENO*/
 # include <unistd.h>
