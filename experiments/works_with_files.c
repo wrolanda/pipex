@@ -6,11 +6,11 @@
 int main(int argc, char **argv)
 {
     (void)argc;
-
+    int buf_size = 20;
     int infile;
     int outfile;
     int read_bytes;
-    char buffer[20];
+    char buffer[buf_size];
 
     infile = open(argv[1], O_RDONLY, 0);
     if (infile < 0) 
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     read_bytes = 1;
     while (read_bytes > 0)
     {
-        read_bytes = read(infile, buffer, 20);
+        read_bytes = read(infile, buffer, buf_size);
         write(outfile, buffer, read_bytes);
     }
     close(infile);
