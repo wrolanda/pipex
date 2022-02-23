@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:41:17 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 20:22:52 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:44:13 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_pipex
 {
 	int		infile;
 	int		outfile;
-	char	*cmd_path;
-	char	**cmds;
+	char	*cmd_path_all;
+	char	**cmd_path_only;
 	char	**cmd_args;
 	char	*command;
 

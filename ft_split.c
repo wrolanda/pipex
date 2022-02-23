@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:30 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 20:18:19 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:04:20 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,8 @@ static char	**ft_wordprint(char **res, char const *s, char c, int q)
 char	**ft_split(char const *s, char c)
 {
 	char	**res;
-	int		i;
 	int		q;
 
-	i = 0;
 	q = 0;
 	if (!s)
 		return (NULL);

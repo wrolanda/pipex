@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:17:44 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 20:27:32 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:48:37 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ void	ft_child_one(t_pipex *s, int end[2], char *argv, char **envp)
 	if (dup2(end[1], STDOUT_FILENO) < 0)
 		return ;
 	close(end[0]);
-	close(s->infile);
 	close(end[1]);
 	s->cmd_args = ft_split(argv, ' ');
-	s->command = ft_get_cmd(s->cmd_args[0], s->cmds);
+	s->command = ft_get_cmd(s->cmd_args[0], s->cmd_path_only);
 	if (!s->command)
 	{
 		ft_child_free(s);
@@ -55,6 +54,7 @@ void	ft_child_one(t_pipex *s, int end[2], char *argv, char **envp)
 		exit(1);
 	}
 	execve(s->command, s->cmd_args, envp);
+	close(s->infile);
 }
 
 void	ft_child_two(t_pipex *s, int end[2], char *argv, char **envp)
@@ -65,7 +65,7 @@ void	ft_child_two(t_pipex *s, int end[2], char *argv, char **envp)
 		return ;
 	close(end[1]);
 	s->cmd_args = ft_split(argv, ' ');
-	s->command = ft_get_cmd(s->cmd_args[0], s->cmds);
+	s->command = ft_get_cmd(s->cmd_args[0], s->cmd_path_only);
 	if (!s->command)
 	{
 		ft_child_free(s);
@@ -89,8 +89,8 @@ int	main(int argc, char **argv, char **envp)
 		perror("bash: ");
 		return (-1);
 	}
-	s.cmd_path = ft_find_path(envp);
-	s.cmds = ft_split(s.cmd_path, ':');
+	s.cmd_path_all = ft_find_path(envp);
+	s.cmd_path_only = ft_split(s.cmd_path_all, ':');
 	pipex(&s, argv, envp);
 	ft_parent_free(&s);
 	return (0);

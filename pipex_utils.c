@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:21:49 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 19:47:47 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:44:36 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	ft_parent_free(t_pipex *s)
 	int	i;
 
 	i = 0;
-	while (s->cmds[i])
+	while (s->cmd_path_only[i])
 	{
-		free(s->cmds[i]);
+		free(s->cmd_path_only[i]);
 		i++;
 	}
-	free(s->cmds);
+	free(s->cmd_path_only);
 }
 
 void	ft_child_free(t_pipex *s)
