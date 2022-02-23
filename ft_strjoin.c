@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 20:50:16 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 19:54:48 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 20:19:44 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*newstr;
 	size_t	i;
+	size_t	j;
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
@@ -86,6 +87,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	newstr = ft_calloc(sizeof(char), i + 1);
 	if (newstr == NULL)
 		return (NULL);
-	ft_strlcat(newstr, s1, i + 1) + ft_strlcat(newstr, s2, i + 1);
+	j = ft_strlcat(newstr, s1, i + 1) + ft_strlcat(newstr, s2, i + 1);
+	j = 0;
 	return (newstr);
 }

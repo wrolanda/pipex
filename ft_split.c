@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:30 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 16:00:50 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 20:18:19 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,3 @@ char	**ft_split(char const *s, char c)
 	res = ft_wordprint(res, s, c, q);
 	return (res);
 }
-
