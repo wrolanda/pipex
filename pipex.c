@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:17:44 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 20:04:36 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 20:15:27 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	pipex(t_pipex *s, char **argv, char **envp)
 
 void	ft_child_one(t_pipex *s, int end[2], char *argv, char **envp)
 {
-	//if (dup2(s->infile, STDIN_FILENO) < 0)
-	//	return ;
+	if (dup2(s->infile, STDIN_FILENO) < 0)
+		return ;
 	if (dup2(end[1], STDOUT_FILENO) < 0)
 		return ;
 	close(end[0]);
