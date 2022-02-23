@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:17:44 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 18:45:11 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 20:04:36 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,17 @@ void	ft_child_one(t_pipex *s, int end[2], char *argv, char **envp)
 	close(end[0]);
 	close(s->infile);
 	close(end[1]);
+	s->cmd_args = ft_split(argv, ' ');
 	//access проверка на существоование команды
-	execlp("ping", "ping", "-c", "5", "google.com", NULL);
+	s->command = ft_get_cmd(s->cmd_args[0], s->cmds);
+	if (!s->command)
+	{
+		ft_child_free(s);
+		perror("first command not found");
+		exit(1);
+	}
+	execve(s->command, s->cmd_args, envp);
+	//execlp("ping", "ping", "-c", "5", "google.com", NULL);
 	//exit(EXIT_FAILURE);
 }
 
@@ -59,7 +68,17 @@ void	ft_child_two(t_pipex *s, int end[2], char *argv, char **envp)
 	if (dup2(s->outfile, STDOUT_FILENO) < 0)
 		return ;
 	close(end[1]);
-	execlp("grep", "grep", "rtt", NULL);
+	s->cmd_args = ft_split(argv, ' ');
+	//access проверка на существоование команды
+	s->command = ft_get_cmd(s->cmd_args[0], s->cmds);
+	if (!s->command)
+	{
+		ft_child_free(s);
+		perror("second command not found");
+		exit(1);
+	}
+	execve(s->command, s->cmd_args, envp);
+	//execlp("grep", "grep", "rtt", NULL);
 	close(s->outfile);
 	//exit(EXIT_FAILURE);
 }
@@ -73,7 +92,10 @@ int	main(int argc, char **argv, char **envp)
 	s.infile = open(argv[1], O_RDONLY);
 	s.outfile = open(argv[4], O_RDWR|O_CREAT|O_TRUNC, S_IREAD|S_IWRITE);
 	if (s.infile < 0 || s.outfile < 0)
+	{
+		perror("bash: ");
 		return (-1);
+	}
 	s.cmd_path = ft_find_path(envp);
 	s.cmds = ft_split(s.cmd_path, ':');
 	pipex(&s, argv, envp);

@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:41:17 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 18:46:00 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 19:56:19 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_pipex
 	int		outfile;
 	char	*cmd_path;
 	char	**cmds;
+	char	**cmd_args;
+	char	*command;
 
 } 		t_pipex;
 
@@ -43,9 +45,13 @@ void	ft_child_one(t_pipex *s, int end[2], char *argv, char **envp);
 void	ft_child_two(t_pipex *s, int end[2], char *argv, char **envp);
 char	*ft_find_path(char **envp);
 void	ft_parent_free(t_pipex *s);
+void	ft_child_free(t_pipex *s);
+char	*ft_get_cmd(char *cmd, char **paths);
 
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_memset(void *b, int c, size_t len);
 
 #endif

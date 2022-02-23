@@ -6,7 +6,7 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:21:49 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/23 18:42:05 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/02/23 19:47:47 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,36 @@ void	ft_parent_free(t_pipex *s)
 		i++;
 	}
 	free(s->cmds);
+}
+
+void	ft_child_free(t_pipex *s)
+{
+	int	i;
+
+	i = 0;
+	while (s->cmd_args[i])
+	{
+		free(s->cmd_args[i]);
+		i++;
+	}
+	free(s->cmd_args);
+	free(s->command);
+}
+
+char	*ft_get_cmd(char *cmd, char **paths)
+{
+	char	*tmp;
+	char	*command;
+
+	while (*paths)
+	{
+		tmp = ft_strjoin(*paths, "/");
+		command = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(command, 0) == 0)
+			return (command);
+		free(command);
+		paths++;
+	}
+	return (NULL);
 }
