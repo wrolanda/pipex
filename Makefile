@@ -6,14 +6,14 @@
 #    By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/21 23:04:08 by wrolanda          #+#    #+#              #
-#    Updated: 2022/02/23 22:51:00 by wrolanda         ###   ########.fr        #
+#    Updated: 2022/03/05 22:39:10 by wrolanda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	pipex
 
 SRCS	=	pipex.c pipex_utils.c\
-			ft_memset.c	ft_split.c	ft_strjoin.c	ft_strncmp.c
+			ft_memset.c	ft_split.c	ft_strjoin.c	ft_strncmp.c\
 
 SRCS_B	=
 

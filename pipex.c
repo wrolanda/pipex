@@ -6,11 +6,12 @@
 /*   By: wrolanda <wrolanda@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 16:17:44 by wrolanda          #+#    #+#             */
-/*   Updated: 2022/02/28 22:04:33 by wrolanda         ###   ########.fr       */
+/*   Updated: 2022/03/06 00:05:12 by wrolanda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./pipex.h"
+#include <string.h>
 
 void	pipex(t_pipex *s, char **argv, char **envp)
 {
@@ -50,8 +51,10 @@ void	ft_child_one(t_pipex *s, int end[2], char *argv, char **envp)
 	if (!s->command)
 	{
 		ft_child_free(s);
-		perror("first command not found");
-		exit(1);
+		write(STDERR_FILENO, "pipex: ", 7);
+		write(STDERR_FILENO, argv, ft_strlen(argv));
+		write(STDERR_FILENO, ": command not found\n", 21);
+		exit(127);
 	}
 	execve(s->command, s->cmd_args, envp);
 	close(s->infile);
@@ -69,8 +72,10 @@ void	ft_child_two(t_pipex *s, int end[2], char *argv, char **envp)
 	if (!s->command)
 	{
 		ft_child_free(s);
-		perror("second command not found");
-		exit(1);
+		write(STDERR_FILENO, "pipex: ", 7);
+		write(STDERR_FILENO, argv, ft_strlen(argv));
+		write(STDERR_FILENO, ": command not found\n", 21);
+		exit(127);
 	}
 	execve(s->command, s->cmd_args, envp);
 	close(s->outfile);
@@ -81,13 +86,17 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	s;
 
 	if (argc != 5)
-		return (write (1, "Incorrect number of arguments\n", 31));
+		return (write (2, "Incorrect number of arguments\n", 31));
+	if (!envp)
+		exit(0);
 	s.infile = open(argv[1], O_RDONLY);
 	s.outfile = open(argv[4], O_RDWR | O_CREAT | O_TRUNC, S_IREAD | S_IWRITE);
 	if (s.infile < 0 || s.outfile < 0)
 	{
-		perror("bash: ");
-		return (-1);
+		write(STDERR_FILENO, "pipex: ", 7);
+		write(STDERR_FILENO, argv[1], ft_strlen(argv[1]));
+		write(STDERR_FILENO, ": ", 2);
+		perror("");
 	}
 	s.cmd_path_all = ft_find_path(envp);
 	s.cmd_path_only = ft_split(s.cmd_path_all, ':');
